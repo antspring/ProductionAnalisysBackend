@@ -29,3 +29,10 @@ jobs:
         file: ./ProductionAnalisysAPI/Dockerfile
         push: true
         tags: antspring/production-analysis-backend
+
+    - name: Trigger deployment
+      uses: peter-evans/repository-dispatch@v4
+      with:
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        repository: antspring/ProductionAnalisysConfiguration
+        event-type: deploy
