@@ -108,6 +108,18 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Statuses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Active"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Inactive"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

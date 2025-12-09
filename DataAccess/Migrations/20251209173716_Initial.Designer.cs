@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251208121159_Initial")]
+    [Migration("20251209173716_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -111,6 +111,18 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Statuses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Active"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Inactive"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
