@@ -24,7 +24,7 @@ public class CustomUserManager : UserManager<ApplicationUser>
 
     public override async Task<IdentityResult> CreateAsync(ApplicationUser user, string password)
     {
-        var result = await base.CreateAsync(user);
+        var result = await base.CreateAsync(user, password);
 
         if (result.Succeeded)
         {
