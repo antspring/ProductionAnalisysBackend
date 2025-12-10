@@ -1,19 +1,21 @@
-using DataAccess;
 using DataAccess.Models;
-using Microsoft.EntityFrameworkCore;
+using ProductionAnalisysAPI;
+using ProductionAnalisysAPI.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSqlConnectionString")));
+builder.Services.AddDbContext(builder.Configuration);
 builder.Services.AddAuthorization();
-builder.Services.AddIdentityApiEndpoints<ApplicationUser>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity(builder.Configuration);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDependencyInjectionServices();
+
 var app = builder.Build();
+
+await SeederManager.SeedAsync(app.Services);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -23,6 +25,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapIdentityApi<ApplicationUser>();
+
+app.MapPasswordGenerateEndpoints();
+app.MapUserEndpoints();
 
 app.UseHttpsRedirection();
 
