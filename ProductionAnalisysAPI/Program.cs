@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext(builder.Configuration);
 builder.Services.AddAuthorization();
-builder.Services.AddIdentity();
+builder.Services.AddIdentity(builder.Configuration);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

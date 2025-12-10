@@ -15,12 +15,26 @@ public static class ServiceCollectionExtension
             options.UseNpgsql(configuration.GetConnectionString("PostgreSqlConnectionString")));
     }
 
-    public static void AddIdentity(this IServiceCollection services)
+    public static void AddIdentity(this IServiceCollection services, ConfigurationManager configuration)
     {
-        services.AddIdentityApiEndpoints<ApplicationUser>(options => options.Password.RequiredLength = 8)
+        services
+            .AddAuthentication(IdentityConstants.BearerScheme)
+            .AddBearerToken(IdentityConstants.BearerScheme,
+                options =>
+                {
+                    options.BearerTokenExpiration =
+                        TimeSpan.FromMinutes(configuration.GetValue<int>("BearerTokenExpirationInMinutes"));
+                    options.RefreshTokenExpiration =
+                        TimeSpan.FromDays(configuration.GetValue<int>("RefreshTokenExpirationInDays"));
+                });
+
+
+        services
+            .AddIdentityCore<ApplicationUser>(options => options.Password.RequiredLength = 8)
             .AddRoles<IdentityRole>()
             .AddUserManager<CustomUserManager>()
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddApiEndpoints();
     }
 
     public static void AddDependencyInjectionServices(this IServiceCollection services)
