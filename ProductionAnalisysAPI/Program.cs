@@ -27,6 +27,7 @@ if (app.Environment.IsDevelopment())
 app.MapIdentityApi<ApplicationUser>();
 
 app.MapPasswordGenerateEndpoints();
+app.MapUserEndpoints();
 
 app.UseHttpsRedirection();
 
