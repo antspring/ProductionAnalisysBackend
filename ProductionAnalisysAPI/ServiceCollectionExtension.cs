@@ -45,6 +45,7 @@ public static class ServiceCollectionExtension
         services.AddSingleton<IPasswordGenerateService, PasswordGenerateService>();
 
         services.AddScoped<IStatusRepository, StatusRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
     }
 
     public static void AddSwagger(this IServiceCollection services)
