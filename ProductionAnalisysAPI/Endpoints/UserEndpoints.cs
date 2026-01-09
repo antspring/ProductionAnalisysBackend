@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DataAccess.Repositories.Implementations;
+using DataAccess.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProductionAnalisysAPI.DTO.Requests;
 
 namespace ProductionAnalisysAPI.Endpoints;
@@ -49,6 +52,29 @@ public static class UserEndpoints
                 var addResult = await userManager.AddToRoleAsync(user, request.Role);
                 if (!addResult.Succeeded)
                     return Results.BadRequest(addResult.Errors);
+
+                return Results.Ok();
+            }).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin" });
+
+        userEndpoints.MapPatch("/changeStatus",
+            async ([FromBody] ChangeStatusRequest request, CustomUserManager userManager,
+                IStatusRepository statusRepository) =>
+            {
+                var user = await userManager.FindByEmailAsync(request.Email);
+                if (user == null)
+                    return Results.NotFound("User not found");
+
+                if (!await statusRepository.ExistAsync(status => status.Id == request.StatusId))
+                {
+                    return Results.NotFound("Status not found");
+                }
+
+                user.StatusId = request.StatusId;
+
+                var result = await userManager.UpdateAsync(user);
+
+                if (!result.Succeeded)
+                    return Results.BadRequest(result.Errors);
 
                 return Results.Ok();
             }).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin" });

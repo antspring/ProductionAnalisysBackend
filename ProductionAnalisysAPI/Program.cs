@@ -15,7 +15,7 @@ builder.Services.AddDependencyInjectionServices();
 
 var app = builder.Build();
 
-// await SeederManager.SeedAsync(app.Services);
+await SeederManager.SeedAsync(app.Services);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -24,7 +24,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// app.UseAuthentication();
 
 app.MapIdentityApi<ApplicationUser>();
 
