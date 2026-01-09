@@ -1,6 +1,0 @@
-@ProductionAnalisysAPI_HostAddress = http://localhost:5182
-
-GET {{ProductionAnalisysAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

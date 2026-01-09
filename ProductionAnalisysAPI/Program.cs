@@ -9,7 +9,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddIdentity(builder.Configuration);
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwagger();
 
 builder.Services.AddDependencyInjectionServices();
 
@@ -23,6 +23,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 app.MapIdentityApi<ApplicationUser>();
 
