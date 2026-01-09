@@ -1,5 +1,7 @@
 ﻿using DataAccess;
 using DataAccess.Models;
+using DataAccess.Repositories.Implementations;
+using DataAccess.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -41,8 +43,10 @@ public static class ServiceCollectionExtension
     public static void AddDependencyInjectionServices(this IServiceCollection services)
     {
         services.AddSingleton<IPasswordGenerateService, PasswordGenerateService>();
+
+        services.AddScoped<IStatusRepository, StatusRepository>();
     }
-    
+
     public static void AddSwagger(this IServiceCollection services)
     {
         services.AddSwaggerGen(options =>
@@ -56,19 +60,7 @@ public static class ServiceCollectionExtension
                 In = ParameterLocation.Header,
                 Description = "JWT Authorization header using the Bearer scheme."
             });
-    
-            // options.AddSecurityRequirement(new OpenApiSecurityRequirement
-            // {
-            //     {
-            //         new OpenApiSecurityScheme
-            //         {
-            //             Reference = new OpenApiReference {
-            //                 Type = ReferenceType.SecurityScheme,
-            //                 Id = "Bearer"
-            //             }
-            //         }, new List<string>()
-            //     }
-            // });
+
             options.OperationFilter<AuthorizeCheckOperationFilter>();
         });
     }
