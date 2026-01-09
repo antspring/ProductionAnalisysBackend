@@ -29,6 +29,7 @@ app.MapIdentityApi<ApplicationUser>();
 
 app.MapPasswordGenerateEndpoints();
 app.MapUserEndpoints();
+app.MapStatusEndpoints();
 
 app.UseHttpsRedirection();
 

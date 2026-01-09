@@ -24,4 +24,9 @@ public class StatusRepository : IStatusRepository
     {
         return await _dbContext.Statuses.AnyAsync(predicate);
     }
+
+    public async Task<List<Status>> GetAllAsync()
+    {
+        return await _dbContext.Statuses.ToListAsync();
+    }
 }
