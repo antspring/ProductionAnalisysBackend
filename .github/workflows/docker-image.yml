@@ -34,7 +34,7 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         context: .
-        file: ./ProductionAnalisysAPI/Migrations.Dockerfile
+        file: ./Infrastructure/Migrations.Dockerfile
         push: true
         tags: antspring/production-analysis-migrate
 
