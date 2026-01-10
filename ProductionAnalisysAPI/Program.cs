@@ -1,7 +1,8 @@
-using DataAccess.Models;
+using Domain.Models;
+using Infrastructure;
 using ProductionAnalisysAPI;
 using ProductionAnalisysAPI.Endpoints;
-using ProductionAnalisysAPI.Identity;
+using Infrastructure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,5 +1,5 @@
-﻿using ProductionAnalisysAPI.Identity;
-using Services.Services.Interfaces;
+﻿using Application.Services.Interfaces;
+using Infrastructure.Identity;
 
 namespace ProductionAnalisysAPI.Endpoints;
 
