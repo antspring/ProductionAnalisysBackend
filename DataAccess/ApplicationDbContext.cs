@@ -1,4 +1,5 @@
 ﻿using DataAccess.Models;
+using DataAccess.Models.Catalogs;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +13,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     }
 
     public DbSet<Status> Statuses { get; set; }
+    public DbSet<Catalog> Catalogs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
