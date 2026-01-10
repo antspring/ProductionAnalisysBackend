@@ -1,6 +1,7 @@
 using DataAccess.Models;
 using ProductionAnalisysAPI;
 using ProductionAnalisysAPI.Endpoints;
+using ProductionAnalisysAPI.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +26,7 @@ if (app.Environment.IsDevelopment())
 }
 
 
-app.MapIdentityApi<ApplicationUser>();
+app.MapCustomIdentityApi<ApplicationUser>();
 
 app.MapPasswordGenerateEndpoints();
 app.MapUserEndpoints();
