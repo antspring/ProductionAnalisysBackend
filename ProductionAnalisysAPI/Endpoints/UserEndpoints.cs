@@ -12,23 +12,7 @@ public static class UserEndpoints
     public static void MapUserEndpoints(this WebApplication app)
     {
         var userEndpoints = app.MapGroup("/user");
-
-        userEndpoints.MapGet("/info", async (CustomUserManager userManager, HttpContext httpContext) =>
-        {
-            var user = await userManager.GetUserAsync(httpContext.User);
-            if (user == null)
-                return Results.Unauthorized();
-
-            var roles = await userManager.GetRolesAsync(user);
-
-            return Results.Ok(new
-            {
-                email = user.Email,
-                roles
-            });
-        }).RequireAuthorization();
-
-
+        
         userEndpoints.MapPatch("/changeRole",
             async ([FromBody] ChangeRoleRequest request,
                 CustomUserManager userManager, RoleManager<IdentityRole> roleManager) =>
