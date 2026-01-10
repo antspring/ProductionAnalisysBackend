@@ -5,6 +5,7 @@ using DataAccess.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using ProductionAnalisysAPI.Identity;
 using Services.Services.Implementations;
 using Services.Services.Interfaces;
 
@@ -33,7 +34,14 @@ public static class ServiceCollectionExtension
 
 
         services
-            .AddIdentityCore<ApplicationUser>(options => options.Password.RequiredLength = 8)
+            .AddIdentityCore<ApplicationUser>(options =>
+            {
+                options.Password.RequiredLength = 8;
+
+                options.User.RequireUniqueEmail = true;
+                options.User.AllowedUserNameCharacters =
+                    "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя ";
+            })
             .AddRoles<IdentityRole>()
             .AddUserManager<CustomUserManager>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -45,6 +53,8 @@ public static class ServiceCollectionExtension
         services.AddSingleton<IPasswordGenerateService, PasswordGenerateService>();
 
         services.AddScoped<IStatusRepository, StatusRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<CustomSignInManager>();
     }
 
     public static void AddSwagger(this IServiceCollection services)

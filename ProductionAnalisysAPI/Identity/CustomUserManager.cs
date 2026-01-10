@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
-namespace ProductionAnalisysAPI;
+namespace ProductionAnalisysAPI.Identity;
 
 public class CustomUserManager : UserManager<ApplicationUser>
 {

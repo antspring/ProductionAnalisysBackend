@@ -1,10 +1,9 @@
-﻿using DataAccess.Repositories.Implementations;
-using DataAccess.Repositories.Interfaces;
+﻿using DataAccess.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ProductionAnalisysAPI.DTO.Requests;
+using ProductionAnalisysAPI.Identity;
 
 namespace ProductionAnalisysAPI.Endpoints;
 
@@ -78,5 +77,9 @@ public static class UserEndpoints
 
                 return Results.Ok();
             }).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin" });
+
+        userEndpoints.MapGet("/", async (IUserRepository userRepository) =>
+            await userRepository.GetAllAsync()
+        ).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin" });
     }
 }
