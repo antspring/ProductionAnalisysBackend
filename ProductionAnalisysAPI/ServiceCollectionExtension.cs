@@ -1,13 +1,12 @@
-﻿using DataAccess;
-using DataAccess.Models;
-using DataAccess.Repositories.Implementations;
-using DataAccess.Repositories.Interfaces;
+﻿using Application.Repositories.Interfaces;
+using Application.Services.Implementations;
+using Application.Services.Interfaces;
+using Infrastructure;
+using Infrastructure.Identity;
+using Infrastructure.Repositories.Implementations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using ProductionAnalisysAPI.Identity;
-using Services.Services.Implementations;
-using Services.Services.Interfaces;
 
 namespace ProductionAnalisysAPI;
 

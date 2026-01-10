@@ -1,9 +1,10 @@
-﻿using DataAccess.Repositories.Interfaces;
+﻿using Application.Repositories.Interfaces;
+using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ProductionAnalisysAPI.DTO.Requests;
-using ProductionAnalisysAPI.Identity;
+
 
 namespace ProductionAnalisysAPI.Endpoints;
 
@@ -12,7 +13,7 @@ public static class UserEndpoints
     public static void MapUserEndpoints(this WebApplication app)
     {
         var userEndpoints = app.MapGroup("/user");
-        
+
         userEndpoints.MapPatch("/changeRole",
             async ([FromBody] ChangeRoleRequest request,
                 CustomUserManager userManager, RoleManager<IdentityRole> roleManager) =>
