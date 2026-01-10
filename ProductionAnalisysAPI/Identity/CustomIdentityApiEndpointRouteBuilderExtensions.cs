@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
+using ProductionAnalisysAPI.DTO.Requests;
+using ProductionAnalisysAPI.DTO.Responses;
 
 namespace ProductionAnalisysAPI.Identity;
 
@@ -328,7 +330,7 @@ public static class CustomIdentityApiEndpointRouteBuilderExtensions
             });
         });
 
-        accountGroup.MapGet("/info", async Task<Results<Ok<InfoResponse>, ValidationProblem, NotFound>>
+        accountGroup.MapGet("/info", async Task<Results<Ok<UserInfoResponse>, ValidationProblem, NotFound>>
             (ClaimsPrincipal claimsPrincipal, [FromServices] IServiceProvider sp) =>
         {
             var userManager = sp.GetRequiredService<UserManager<TUser>>();
@@ -340,18 +342,13 @@ public static class CustomIdentityApiEndpointRouteBuilderExtensions
             return TypedResults.Ok(await CreateInfoResponseAsync(user, userManager));
         });
 
-        accountGroup.MapPost("/info", async Task<Results<Ok<InfoResponse>, ValidationProblem, NotFound>>
-            (ClaimsPrincipal claimsPrincipal, [FromBody] InfoRequest infoRequest, HttpContext context, [FromServices] IServiceProvider sp) =>
+        accountGroup.MapPost("/info", async Task<Results<Ok<UserInfoResponse>, ValidationProblem, NotFound>>
+            (ClaimsPrincipal claimsPrincipal, [FromBody] UserInfoRequest infoRequest, HttpContext context, [FromServices] IServiceProvider sp) =>
         {
             var userManager = sp.GetRequiredService<UserManager<TUser>>();
             if (await userManager.GetUserAsync(claimsPrincipal) is not { } user)
             {
                 return TypedResults.NotFound();
-            }
-
-            if (!string.IsNullOrEmpty(infoRequest.NewEmail) && !_emailAddressAttribute.IsValid(infoRequest.NewEmail))
-            {
-                return CreateValidationProblem(IdentityResult.Failed(userManager.ErrorDescriber.InvalidEmail(infoRequest.NewEmail)));
             }
 
             if (!string.IsNullOrEmpty(infoRequest.NewPassword))
@@ -369,13 +366,13 @@ public static class CustomIdentityApiEndpointRouteBuilderExtensions
                 }
             }
 
-            if (!string.IsNullOrEmpty(infoRequest.NewEmail))
+            if (!string.IsNullOrEmpty(infoRequest.NewUserName))
             {
-                var email = await userManager.GetEmailAsync(user);
+                var setUserNameResult = await userManager.SetUserNameAsync(user, infoRequest.NewUserName);
 
-                if (email != infoRequest.NewEmail)
+                if (!setUserNameResult.Succeeded)
                 {
-                    await SendConfirmationEmailAsync(user, userManager, context, infoRequest.NewEmail, isChange: true);
+                    return CreateValidationProblem(setUserNameResult);
                 }
             }
 
@@ -449,13 +446,14 @@ public static class CustomIdentityApiEndpointRouteBuilderExtensions
         return TypedResults.ValidationProblem(errorDictionary);
     }
 
-    private static async Task<InfoResponse> CreateInfoResponseAsync<TUser>(TUser user, UserManager<TUser> userManager)
+    private static async Task<UserInfoResponse> CreateInfoResponseAsync<TUser>(TUser user, UserManager<TUser> userManager)
         where TUser : class
     {
         return new()
         {
+            UserName = await userManager.GetUserNameAsync(user),
             Email = await userManager.GetEmailAsync(user) ?? throw new NotSupportedException("Users must have an email."),
-            IsEmailConfirmed = await userManager.IsEmailConfirmedAsync(user),
+            Roles = await userManager.GetRolesAsync(user)
         };
     }
 
