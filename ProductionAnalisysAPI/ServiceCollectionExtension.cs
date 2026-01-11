@@ -1,9 +1,12 @@
 ﻿using Application.Repositories.Interfaces;
+using Application.Services.Catalog;
 using Application.Services.Implementations;
 using Application.Services.Interfaces;
+using Application.UnitOfWork;
 using Infrastructure;
 using Infrastructure.Identity;
 using Infrastructure.Repositories.Implementations;
+using Infrastructure.UnitOfWork;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -54,6 +57,9 @@ public static class ServiceCollectionExtension
         services.AddScoped<IStatusRepository, StatusRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<CustomSignInManager>();
+        services.AddScoped<ICatalogRepository, CatalogRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<CatalogService>();
     }
 
     public static void AddSwagger(this IServiceCollection services)
