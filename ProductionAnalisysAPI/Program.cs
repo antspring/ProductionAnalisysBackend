@@ -1,4 +1,3 @@
-using Domain.Models;
 using Infrastructure;
 using ProductionAnalisysAPI;
 using ProductionAnalisysAPI.Endpoints;
@@ -31,6 +30,7 @@ app.MapCustomIdentityApi<ApplicationUser>();
 
 app.MapPasswordGenerateEndpoints();
 app.MapUserEndpoints();
+app.MapCatalogEndpoints();
 
 app.UseHttpsRedirection();
 
