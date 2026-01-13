@@ -1,8 +1,10 @@
 ﻿using Application.Repositories.Interfaces;
 using Application.Services.Catalog;
+using Application.Services.CatalogValue;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductionAnalisysAPI.DTO.Requests.Catalog;
+using ProductionAnalisysAPI.DTO.Requests.CatalogValue;
 
 namespace ProductionAnalisysAPI.Endpoints;
 
@@ -50,5 +52,45 @@ public static class CatalogEndpoints
                 return Results.Ok();
             }
         ).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin" });
+
+        catalogEndpoints.MapGet("/{catalogId:int}/value/{Id:int}",
+            async Task<IResult> (int catalogId, int id, CatalogValueService catalogValueService) =>
+            {
+                var catalogValue = await catalogValueService.GetAsync(catalogId, id);
+                return catalogValue is null ? Results.NotFound() : Results.Ok(catalogValue);
+            }
+        );
+
+        catalogEndpoints.MapPost("/{catalogId:int}/value",
+            async Task<IResult> (int catalogId, [FromBody] CatalogValueCreateRequest catalogValueCreateRequest,
+                CatalogValueService catalogValueService) =>
+            {
+                var catalogValue = await catalogValueService.CreateAsync(catalogId, catalogValueCreateRequest.Value);
+                return catalogValue is null ? Results.NotFound() : Results.Ok(catalogValue);
+            }).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin" });
+
+        catalogEndpoints.MapPatch("/{catalogId:int}/value/{id:int}",
+            async Task<IResult> (int catalogId, int id,
+                [FromBody] CatalogValueUpdateRequest catalogValueUpdateRequest,
+                CatalogValueService catalogValueService) =>
+            {
+                var catalogValue = await catalogValueService.UpdateAsync(
+                    new Application.DTO.Requests.CatalogValue.CatalogValueUpdateRequest
+                    {
+                        Id = id,
+                        CatalogId = catalogId,
+                        Value = catalogValueUpdateRequest.Value,
+                    });
+
+                return catalogValue is null ? Results.NotFound() : Results.Ok(catalogValue);
+            }).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin" });
+
+        catalogEndpoints.MapDelete("/{catalogId:int}/value/{id:int}",
+                async Task<IResult> (int catalogId, int id, CatalogValueService catalogValueService) =>
+                {
+                    await catalogValueService.RemoveAsync(catalogId, id);
+                    return Results.Ok();
+                })
+            .RequireAuthorization(new AuthorizeAttribute { Roles = "Admin" });
     }
 }

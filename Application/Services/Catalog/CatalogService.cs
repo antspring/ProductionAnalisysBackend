@@ -1,5 +1,4 @@
 ﻿using Application.UnitOfWork;
-using Domain.Models.Catalogs;
 
 namespace Application.Services.Catalog;
 
@@ -27,7 +26,7 @@ public class CatalogService
         var catalog = new Domain.Models.Catalogs.Catalog
         {
             Title = title,
-            Values = values.Select(CatalogValue.FromString).ToList()
+            Values = values.Select(Domain.Models.Catalogs.CatalogValue.FromString).ToList()
         };
 
         catalog = await _uow.Catalogs.CreateAsync(catalog);

@@ -1,5 +1,6 @@
 ﻿using Application.Repositories.Interfaces;
 using Application.Services.Catalog;
+using Application.Services.CatalogValue;
 using Application.Services.Implementations;
 using Application.Services.Interfaces;
 using Application.UnitOfWork;
@@ -60,6 +61,8 @@ public static class ServiceCollectionExtension
         services.AddScoped<ICatalogRepository, CatalogRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<CatalogService>();
+        services.AddScoped<ICatalogValueRepository, CatalogValueRepository>();
+        services.AddScoped<CatalogValueService>();
     }
 
     public static void AddSwagger(this IServiceCollection services)

@@ -9,14 +9,17 @@ public class UnitOfWork : IUnitOfWork
 
     public UnitOfWork(
         ApplicationDbContext dbContext,
-        ICatalogRepository catalogRepository
+        ICatalogRepository catalogRepository,
+        ICatalogValueRepository catalogValueRepository
     )
     {
         _dbContext = dbContext;
         Catalogs = catalogRepository;
+        CatalogValues = catalogValueRepository;
     }
 
     public ICatalogRepository Catalogs { get; }
+    public ICatalogValueRepository CatalogValues { get; }
 
     public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
