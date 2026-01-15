@@ -3,6 +3,7 @@ using System;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260115184908_create_ProductionDocument_table")]
+    partial class create_ProductionDocument_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,135 +64,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("CatalogValue");
                 });
 
-            modelBuilder.Entity("Domain.Models.ProductionAnalysis.HourlyByTactTime.HourlyByTactTime", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<double>("DailyRate")
-                        .HasColumnType("double precision");
-
-                    b.Property<DateOnly>("Date")
-                        .HasColumnType("date");
-
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("integer");
-
-                    b.Property<double>("Fact")
-                        .HasColumnType("double precision");
-
-                    b.Property<int>("NameOfProductId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PerformerId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ProductionDocumentId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ShiftId")
-                        .HasColumnType("integer");
-
-                    b.Property<double>("TactTime")
-                        .HasColumnType("double precision");
-
-                    b.Property<int>("WorkHourId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DepartmentId");
-
-                    b.HasIndex("PerformerId");
-
-                    b.HasIndex("ProductionDocumentId");
-
-                    b.HasIndex("ShiftId");
-
-                    b.HasIndex("WorkHourId");
-
-                    b.HasIndex("NameOfProductId", "DepartmentId", "PerformerId", "ShiftId", "WorkHourId")
-                        .IsUnique();
-
-                    b.ToTable("HourlyByTactTime");
-                });
-
-            modelBuilder.Entity("Domain.Models.ProductionAnalysis.HourlyByTactTime.HourlyByTactTimeView", b =>
-                {
-                    b.Property<double>("DailyRate")
-                        .HasColumnType("double precision");
-
-                    b.Property<DateOnly>("Date")
-                        .HasColumnType("date");
-
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("integer");
-
-                    b.Property<double>("Deviation")
-                        .HasColumnType("double precision");
-
-                    b.Property<double>("DeviationCumulative")
-                        .HasColumnType("double precision");
-
-                    b.Property<double>("Fact")
-                        .HasColumnType("double precision");
-
-                    b.Property<double>("FactCumulative")
-                        .HasColumnType("double precision");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("NameOfProductId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PerformerId")
-                        .HasColumnType("integer");
-
-                    b.Property<double>("Plan")
-                        .HasColumnType("double precision");
-
-                    b.Property<double>("PlanCumulative")
-                        .HasColumnType("double precision");
-
-                    b.Property<int>("ProductionDocumentId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ShiftId")
-                        .HasColumnType("integer");
-
-                    b.Property<double>("TactTime")
-                        .HasColumnType("double precision");
-
-                    b.Property<double>("TotalFact")
-                        .HasColumnType("double precision");
-
-                    b.Property<double>("TotalPlan")
-                        .HasColumnType("double precision");
-
-                    b.Property<int>("WorkHourId")
-                        .HasColumnType("integer");
-
-                    b.HasIndex("DepartmentId");
-
-                    b.HasIndex("NameOfProductId");
-
-                    b.HasIndex("PerformerId");
-
-                    b.HasIndex("ProductionDocumentId");
-
-                    b.HasIndex("ShiftId");
-
-                    b.HasIndex("WorkHourId");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("HourlyByTactTimeView", (string)null);
-                });
-
             modelBuilder.Entity("Domain.Models.ProductionDownTime.ProductionDocument", b =>
                 {
                     b.Property<int>("Id")
@@ -205,43 +79,6 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductionDocuments");
-                });
-
-            modelBuilder.Entity("Domain.Models.ProductionDownTime.ProductionDownTime", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ActionTake")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("DocumentId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ReasonGroupId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ReasonId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ResponsibleId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DocumentId");
-
-                    b.HasIndex("ReasonGroupId");
-
-                    b.HasIndex("ReasonId");
-
-                    b.HasIndex("ResponsibleId");
-
-                    b.ToTable("ProductionDownTime");
                 });
 
             modelBuilder.Entity("Domain.Models.Status", b =>
@@ -485,143 +322,6 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Catalog");
-                });
-
-            modelBuilder.Entity("Domain.Models.ProductionAnalysis.HourlyByTactTime.HourlyByTactTime", b =>
-                {
-                    b.HasOne("Domain.Models.Catalogs.CatalogValue", "Department")
-                        .WithMany()
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Catalogs.CatalogValue", "NameOfProduct")
-                        .WithMany()
-                        .HasForeignKey("NameOfProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Catalogs.CatalogValue", "Performer")
-                        .WithMany()
-                        .HasForeignKey("PerformerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.ProductionDownTime.ProductionDocument", "ProductionDocument")
-                        .WithMany()
-                        .HasForeignKey("ProductionDocumentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Catalogs.CatalogValue", "Shift")
-                        .WithMany()
-                        .HasForeignKey("ShiftId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Catalogs.CatalogValue", "WorkHour")
-                        .WithMany()
-                        .HasForeignKey("WorkHourId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Department");
-
-                    b.Navigation("NameOfProduct");
-
-                    b.Navigation("Performer");
-
-                    b.Navigation("ProductionDocument");
-
-                    b.Navigation("Shift");
-
-                    b.Navigation("WorkHour");
-                });
-
-            modelBuilder.Entity("Domain.Models.ProductionAnalysis.HourlyByTactTime.HourlyByTactTimeView", b =>
-                {
-                    b.HasOne("Domain.Models.Catalogs.CatalogValue", "Department")
-                        .WithMany()
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Catalogs.CatalogValue", "NameOfProduct")
-                        .WithMany()
-                        .HasForeignKey("NameOfProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Catalogs.CatalogValue", "Performer")
-                        .WithMany()
-                        .HasForeignKey("PerformerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.ProductionDownTime.ProductionDocument", "ProductionDocument")
-                        .WithMany()
-                        .HasForeignKey("ProductionDocumentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Catalogs.CatalogValue", "Shift")
-                        .WithMany()
-                        .HasForeignKey("ShiftId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Catalogs.CatalogValue", "WorkHour")
-                        .WithMany()
-                        .HasForeignKey("WorkHourId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Department");
-
-                    b.Navigation("NameOfProduct");
-
-                    b.Navigation("Performer");
-
-                    b.Navigation("ProductionDocument");
-
-                    b.Navigation("Shift");
-
-                    b.Navigation("WorkHour");
-                });
-
-            modelBuilder.Entity("Domain.Models.ProductionDownTime.ProductionDownTime", b =>
-                {
-                    b.HasOne("Domain.Models.ProductionDownTime.ProductionDocument", "Document")
-                        .WithMany()
-                        .HasForeignKey("DocumentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Catalogs.CatalogValue", "ReasonGroup")
-                        .WithMany()
-                        .HasForeignKey("ReasonGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Catalogs.CatalogValue", "Reason")
-                        .WithMany()
-                        .HasForeignKey("ReasonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Catalogs.CatalogValue", "Responsible")
-                        .WithMany()
-                        .HasForeignKey("ResponsibleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Document");
-
-                    b.Navigation("Reason");
-
-                    b.Navigation("ReasonGroup");
-
-                    b.Navigation("Responsible");
                 });
 
             modelBuilder.Entity("Infrastructure.ApplicationUser", b =>
