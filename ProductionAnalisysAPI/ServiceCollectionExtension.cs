@@ -1,6 +1,7 @@
 ﻿using Application.Repositories.Interfaces;
 using Application.Services.Catalog;
 using Application.Services.CatalogValue;
+using Application.Services.HourlyByTactTime;
 using Application.Services.Implementations;
 using Application.Services.Interfaces;
 using Application.UnitOfWork;
@@ -63,6 +64,8 @@ public static class ServiceCollectionExtension
         services.AddScoped<CatalogService>();
         services.AddScoped<ICatalogValueRepository, CatalogValueRepository>();
         services.AddScoped<CatalogValueService>();
+        services.AddScoped<IHourlyByTactTimeRepository, HourlyByTactTimeRepository>();
+        services.AddScoped<HourlyByTactTimeService>();
     }
 
     public static void AddSwagger(this IServiceCollection services)

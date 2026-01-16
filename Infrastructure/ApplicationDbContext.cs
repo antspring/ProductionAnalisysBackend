@@ -1,5 +1,8 @@
 ﻿using Domain.Models;
 using Domain.Models.Catalogs;
+using Domain.Models.ProductionAnalysis.HourlyByTactTime;
+using Domain.Models.ProductionDownTime;
+using Infrastructure.EntityTypeConfigurations;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +18,11 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Status> Statuses { get; set; }
     public DbSet<Catalog> Catalogs { get; set; }
 
+    public DbSet<ProductionDocument> ProductionDocuments { get; set; }
+    public DbSet<ProductionDownTime> ProductionDownTime { get; set; }
+    public DbSet<HourlyByTactTime> HourlyByTactTime { get; set; }
+    public DbSet<HourlyByTactTimeView> HourlyByTactTimeViews { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -28,5 +36,9 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
                 new Status { Id = 1, Name = "Active" },
                 new Status { Id = 2, Name = "Inactive" });
         });
+
+        modelBuilder.ApplyConfiguration(new ProductionDocumentConfiguration());
+        modelBuilder.ApplyConfiguration(new HourlyByTactTimeConfiguration());
+        modelBuilder.ApplyConfiguration(new HourlyByTactTimeViewConfiguration());
     }
 }
