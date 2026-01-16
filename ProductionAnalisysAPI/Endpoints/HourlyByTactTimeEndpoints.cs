@@ -1,4 +1,4 @@
-﻿using Application.DTO.Requests.HourlyByTactTimeUpdateRequest;
+﻿using Application.DTO.Requests.HourlyByTactTime;
 using Application.Services.HourlyByTactTime;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

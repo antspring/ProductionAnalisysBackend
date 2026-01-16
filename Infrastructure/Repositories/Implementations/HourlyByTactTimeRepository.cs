@@ -1,4 +1,4 @@
-﻿using Application.DTO.Requests.HourlyByTactTimeUpdateRequest;
+﻿using Application.DTO.Requests.HourlyByTactTime;
 using Application.Repositories.Interfaces;
 using Domain.Models.ProductionAnalysis.HourlyByTactTime;
 using Microsoft.EntityFrameworkCore;

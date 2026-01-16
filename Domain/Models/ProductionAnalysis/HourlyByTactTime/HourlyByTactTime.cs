@@ -40,9 +40,9 @@ public class HourlyByTactTime
         int performerId,
         int shiftId,
         int workHourId,
-        int tactTime,
-        int dailyRate,
-        int fact,
+        double tactTime,
+        double dailyRate,
+        double fact,
         DateOnly date)
     {
         NameOfProductId = nameOfProductId;
