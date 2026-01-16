@@ -35,6 +35,7 @@ app.MapHourlyByTactTimeEndpoints();
 app.MapHourlyByPowerEndpoints();
 app.MapHourlySeveralEndpoints();
 app.MapLessThanPerHourEndpoints();
+app.MapDownTimeEndpoints();
 
 app.UseHttpsRedirection();
 
