@@ -30,6 +30,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<HourlySeveral> HourlySeveral { get; set; }
     public DbSet<HourlySeveralView> HourlySeveralViews { get; set; }
     public DbSet<LessThanPerHour> LessThanPerHour { get; set; }
+    public DbSet<LessThanPerHourView> LessThanPerHourViews { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -53,5 +54,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
         modelBuilder.ApplyConfiguration(new HourlySeveralConfiguration());
         modelBuilder.ApplyConfiguration(new HourlySeveralViewConfiguration());
         modelBuilder.ApplyConfiguration(new LessThanPerHourConfiguration());
+        modelBuilder.ApplyConfiguration(new LessThanPerHourViewConfiguration());
     }
 }
