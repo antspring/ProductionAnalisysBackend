@@ -24,6 +24,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<HourlyByTactTime> HourlyByTactTime { get; set; }
     public DbSet<HourlyByTactTimeView> HourlyByTactTimeViews { get; set; }
     public DbSet<HourlyByPower> HourlyByPower { get; set; }
+    public DbSet<HourlyByPowerView> HourlyByPowerViews { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -43,5 +44,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
         modelBuilder.ApplyConfiguration(new HourlyByTactTimeConfiguration());
         modelBuilder.ApplyConfiguration(new HourlyByTactTimeViewConfiguration());
         modelBuilder.ApplyConfiguration(new HourlyByPowerConfiguration());
+        modelBuilder.ApplyConfiguration(new HourlyByPowerViewConfiguration());
     }
 }
