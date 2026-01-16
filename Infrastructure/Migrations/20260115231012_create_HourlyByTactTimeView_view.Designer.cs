@@ -3,6 +3,7 @@ using System;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260115231012_create_HourlyByTactTimeView_view")]
+    partial class create_HourlyByTactTimeView_view
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,8 +122,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.ProductionAnalysis.HourlyByTactTime.HourlyByTactTimeView", b =>
                 {
-                    b.Property<double>("DailyRate")
-                        .HasColumnType("double precision");
+                    b.Property<int>("DailyRate")
+                        .HasColumnType("integer");
 
                     b.Property<DateOnly>("Date")
                         .HasColumnType("date");
@@ -128,17 +131,17 @@ namespace Infrastructure.Migrations
                     b.Property<int>("DepartmentId")
                         .HasColumnType("integer");
 
-                    b.Property<double>("Deviation")
-                        .HasColumnType("double precision");
+                    b.Property<int>("Deviation")
+                        .HasColumnType("integer");
 
-                    b.Property<double>("DeviationCumulative")
-                        .HasColumnType("double precision");
+                    b.Property<int>("DeviationCumulative")
+                        .HasColumnType("integer");
 
-                    b.Property<double>("Fact")
-                        .HasColumnType("double precision");
+                    b.Property<int>("Fact")
+                        .HasColumnType("integer");
 
-                    b.Property<double>("FactCumulative")
-                        .HasColumnType("double precision");
+                    b.Property<int>("FactCumulative")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Id")
                         .HasColumnType("integer");
@@ -149,11 +152,11 @@ namespace Infrastructure.Migrations
                     b.Property<int>("PerformerId")
                         .HasColumnType("integer");
 
-                    b.Property<double>("Plan")
-                        .HasColumnType("double precision");
+                    b.Property<int>("Plan")
+                        .HasColumnType("integer");
 
-                    b.Property<double>("PlanCumulative")
-                        .HasColumnType("double precision");
+                    b.Property<int>("PlanCumulative")
+                        .HasColumnType("integer");
 
                     b.Property<int>("ProductionDocumentId")
                         .HasColumnType("integer");
@@ -161,14 +164,14 @@ namespace Infrastructure.Migrations
                     b.Property<int>("ShiftId")
                         .HasColumnType("integer");
 
-                    b.Property<double>("TactTime")
-                        .HasColumnType("double precision");
+                    b.Property<int>("TactTime")
+                        .HasColumnType("integer");
 
-                    b.Property<double>("TotalFact")
-                        .HasColumnType("double precision");
+                    b.Property<int>("TotalFact")
+                        .HasColumnType("integer");
 
-                    b.Property<double>("TotalPlan")
-                        .HasColumnType("double precision");
+                    b.Property<int>("TotalPlan")
+                        .HasColumnType("integer");
 
                     b.Property<int>("WorkHourId")
                         .HasColumnType("integer");

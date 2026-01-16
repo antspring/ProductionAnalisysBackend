@@ -31,6 +31,7 @@ app.MapCustomIdentityApi<ApplicationUser>();
 app.MapPasswordGenerateEndpoints();
 app.MapUserEndpoints();
 app.MapCatalogEndpoints();
+app.MapHourlyByTactTimeEndpoints();
 
 app.UseHttpsRedirection();
 
