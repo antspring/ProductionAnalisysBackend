@@ -1,26 +1,26 @@
-﻿namespace ProductionAnalisysAPI.DTO.Requests.HourlyByTactTime;
+﻿namespace ProductionAnalisysAPI.DTO.Requests.HourlyByPower;
 
-public class HourlyByTactTimeCreateRequest
+public class HourlyByPowerCreateRequest
 {
     public int NameOfProductId { get; set; }
     public int DepartmentId { get; set; }
     public int PerformerId { get; set; }
     public int ShiftId { get; set; }
     public int WorkHourId { get; set; }
-    public double TactTime { get; set; }
+    public double Power { get; set; }
     public double DailyRate { get; set; }
     public double Fact { get; set; }
     public DateOnly Date { get; set; }
 
-    public Domain.Models.ProductionAnalysis.HourlyByTactTime.HourlyByTactTime ToModel()
+    public Domain.Models.ProductionAnalysis.HourlyByPower.HourlyByPower ToModel()
     {
-        return new Domain.Models.ProductionAnalysis.HourlyByTactTime.HourlyByTactTime(
+        return new Domain.Models.ProductionAnalysis.HourlyByPower.HourlyByPower(
             NameOfProductId,
             DepartmentId,
             PerformerId,
             ShiftId,
             WorkHourId,
-            TactTime,
+            Power,
             DailyRate,
             Fact,
             Date);

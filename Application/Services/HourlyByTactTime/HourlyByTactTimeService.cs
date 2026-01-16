@@ -1,4 +1,4 @@
-﻿using Application.DTO.Requests.HourlyByTactTimeUpdateRequest;
+﻿using Application.DTO.Requests.HourlyByTactTime;
 using Application.DTO.Responses.HourlyByTactTime;
 using Application.UnitOfWork;
 using Domain.Models.ProductionDownTime;

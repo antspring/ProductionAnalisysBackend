@@ -16,6 +16,7 @@ public class ProductionDownTime
 
     public int ReasonId { get; set; }
     public CatalogValue Reason { get; set; } = null!;
-
+    
+    public int DownTime { get; set; }
     public string ActionTake { get; set; } = null!;
 }
