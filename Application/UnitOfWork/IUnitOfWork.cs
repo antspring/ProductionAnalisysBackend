@@ -10,6 +10,7 @@ public interface IUnitOfWork
     public IHourlyByPowerRepository HourlyByPower { get; }
     public IHourlySeveralRepository HourlySeveral { get; }
     public ILessThanPerHourRepository LessThanPerHour { get; }
+    public IDownTimeRepository DownTime { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }
