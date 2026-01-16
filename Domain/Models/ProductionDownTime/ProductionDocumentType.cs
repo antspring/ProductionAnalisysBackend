@@ -3,5 +3,6 @@
 public enum ProductionDocumentType
 {
     HourlyByTactTime,
-    HourlyByPower
+    HourlyByPower,
+    HourlySeveral
 }
