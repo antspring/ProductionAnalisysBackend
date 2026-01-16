@@ -1,4 +1,4 @@
-﻿using Application.DTO.Requests.HourlyByTactTimeUpdateRequest;
+﻿using Application.DTO.Requests.HourlyByTactTime;
 using Domain.Models.ProductionAnalysis.HourlyByTactTime;
 
 namespace Application.Repositories.Interfaces;

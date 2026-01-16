@@ -7,8 +7,8 @@ public class HourlyByPowerUpdateRequest
     public int? PerformerId { get; set; }
     public int? ShiftId { get; set; }
     public int? WorkHourId { get; set; }
-    public int? Power { get; set; }
-    public int? DailyRate { get; set; }
-    public int? Fact { get; set; }
+    public double? Power { get; set; }
+    public double? DailyRate { get; set; }
+    public double? Fact { get; set; }
     public DateOnly? Date { get; set; }
 }

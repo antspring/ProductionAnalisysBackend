@@ -7,9 +7,9 @@ public class HourlyByTactTimeCreateRequest
     public int PerformerId { get; set; }
     public int ShiftId { get; set; }
     public int WorkHourId { get; set; }
-    public int TactTime { get; set; }
-    public int DailyRate { get; set; }
-    public int Fact { get; set; }
+    public double TactTime { get; set; }
+    public double DailyRate { get; set; }
+    public double Fact { get; set; }
     public DateOnly Date { get; set; }
 
     public Domain.Models.ProductionAnalysis.HourlyByTactTime.HourlyByTactTime ToModel()

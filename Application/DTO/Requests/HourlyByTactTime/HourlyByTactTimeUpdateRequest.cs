@@ -1,4 +1,4 @@
-﻿namespace Application.DTO.Requests.HourlyByTactTimeUpdateRequest;
+﻿namespace Application.DTO.Requests.HourlyByTactTime;
 
 public class HourlyByTactTimeUpdateRequest
 {
@@ -7,8 +7,8 @@ public class HourlyByTactTimeUpdateRequest
     public int? PerformerId { get; set; }
     public int? ShiftId { get; set; }
     public int? WorkHourId { get; set; }
-    public int? TactTime { get; set; }
-    public int? DailyRate { get; set; }
-    public int? Fact { get; set; }
+    public double? TactTime { get; set; }
+    public double? DailyRate { get; set; }
+    public double? Fact { get; set; }
     public DateOnly? Date { get; set; }
 }
