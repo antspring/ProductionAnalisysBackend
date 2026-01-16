@@ -9,6 +9,7 @@ public interface IUnitOfWork
     public IHourlyByTactTimeRepository HourlyByTactTime { get; }
     public IHourlyByPowerRepository HourlyByPower { get; }
     public IHourlySeveralRepository HourlySeveral { get; }
+    public ILessThanPerHourRepository LessThanPerHour { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }
