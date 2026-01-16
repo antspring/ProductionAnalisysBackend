@@ -1,6 +1,7 @@
 ﻿using Application.Repositories.Interfaces;
 using Application.Services.Catalog;
 using Application.Services.CatalogValue;
+using Application.Services.DownTime;
 using Application.Services.HourlyByPower;
 using Application.Services.HourlyByTactTime;
 using Application.Services.HourlySeveral;
@@ -75,6 +76,8 @@ public static class ServiceCollectionExtension
         services.AddScoped<HourlySeveralService>();
         services.AddScoped<ILessThanPerHourRepository, LessThanPerHourRepository>();
         services.AddScoped<LessThanPerHourService>();
+        services.AddScoped<IDownTimeRepository, DownTimeRepository>();
+        services.AddScoped<DownTimeService>();
     }
 
     public static void AddSwagger(this IServiceCollection services)

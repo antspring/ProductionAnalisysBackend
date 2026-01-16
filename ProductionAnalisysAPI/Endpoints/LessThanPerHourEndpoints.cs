@@ -26,7 +26,7 @@ public static class LessThanPerHourEndpoints
         lessThanPerHourEndpoints.MapPost("/",
             async Task<IResult> ([FromBody] LessThanPerHourCreateRequest request, LessThanPerHourService service) =>
             Results.Ok(await service.CreateAsync(request.ToModel()))
-        ).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin,Operator" });
+        ).RequireAuthorization();
 
         lessThanPerHourEndpoints.MapPatch("/{id:int}", async Task<IResult> (int id,
             [FromBody] LessThanPerHourUpdateRequest request,
@@ -35,13 +35,13 @@ public static class LessThanPerHourEndpoints
             var lessThanPerHour = await service.UpdateAsync(id, request);
 
             return lessThanPerHour is null ? Results.NotFound() : Results.Ok(lessThanPerHour);
-        }).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin,Operator" });
+        }).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin,Master" });
 
         lessThanPerHourEndpoints.MapDelete("/{id:int}",
             async Task<IResult> (int id, LessThanPerHourService service) =>
             {
                 await service.RemoveAsync(id);
                 return Results.Ok();
-            }).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin,Operator" });
+            }).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin,Master" });
     }
 }
