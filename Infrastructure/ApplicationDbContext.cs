@@ -3,6 +3,7 @@ using Domain.Models.Catalogs;
 using Domain.Models.ProductionAnalysis.HourlyByPower;
 using Domain.Models.ProductionAnalysis.HourlyByTactTime;
 using Domain.Models.ProductionAnalysis.HourlySeveral;
+using Domain.Models.ProductionAnalysis.LessThanPerHour;
 using Domain.Models.ProductionDownTime;
 using Infrastructure.EntityTypeConfigurations;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -28,6 +29,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<HourlyByPowerView> HourlyByPowerViews { get; set; }
     public DbSet<HourlySeveral> HourlySeveral { get; set; }
     public DbSet<HourlySeveralView> HourlySeveralViews { get; set; }
+    public DbSet<LessThanPerHour> LessThanPerHour { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -50,5 +52,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
         modelBuilder.ApplyConfiguration(new HourlyByPowerViewConfiguration());
         modelBuilder.ApplyConfiguration(new HourlySeveralConfiguration());
         modelBuilder.ApplyConfiguration(new HourlySeveralViewConfiguration());
+        modelBuilder.ApplyConfiguration(new LessThanPerHourConfiguration());
     }
 }
