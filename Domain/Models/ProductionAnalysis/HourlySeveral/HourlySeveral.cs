@@ -39,4 +39,44 @@ public class HourlySeveral
 
     public int ProductionDocumentId { get; set; }
     public ProductionDocument ProductionDocument { get; set; } = null!;
+
+    public HourlySeveral()
+    {
+    }
+
+    public HourlySeveral(
+        int product1Id,
+        int product2Id,
+        int departmentId,
+        int performerId,
+        int shiftId,
+        int workHourId,
+        DateOnly date,
+        double cycleTime1,
+        double cycleTime2,
+        double dailyRate1,
+        double dailyRate2,
+        double fact,
+        double changeover
+    )
+    {
+        Product1Id = product1Id;
+        Product2Id = product2Id;
+        DepartmentId = departmentId;
+        PerformerId = performerId;
+        ShiftId = shiftId;
+        WorkHourId = workHourId;
+        Date = date;
+        CycleTime1 = cycleTime1;
+        CycleTime2 = cycleTime2;
+        DailyRate1 = dailyRate1;
+        DailyRate2 = dailyRate2;
+        Fact = fact;
+        Changeover = changeover;
+    }
+
+    public void AddProductionDocument(ProductionDocument productionDocument)
+    {
+        ProductionDocument = productionDocument;
+    }
 }
