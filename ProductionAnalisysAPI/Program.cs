@@ -33,6 +33,7 @@ app.MapUserEndpoints();
 app.MapCatalogEndpoints();
 app.MapHourlyByTactTimeEndpoints();
 app.MapHourlyByPowerEndpoints();
+app.MapHourlySeveralEndpoints();
 
 app.UseHttpsRedirection();
 
