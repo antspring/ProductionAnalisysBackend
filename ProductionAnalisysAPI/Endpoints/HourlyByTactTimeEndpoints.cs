@@ -26,7 +26,7 @@ public static class HourlyByTactTimeEndpoints
         hourlyByTactTimeEndpoints.MapPost("/",
             async Task<IResult> ([FromBody] HourlyByTactTimeCreateRequest request, HourlyByTactTimeService service) =>
             Results.Ok(await service.CreateAsync(request.ToModel()))
-        ).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin,Operator" });
+        ).RequireAuthorization();
 
         hourlyByTactTimeEndpoints.MapPatch("/{id:int}", async Task<IResult> (int id,
             [FromBody] HourlyByTactTimeUpdateRequest request,
@@ -35,13 +35,13 @@ public static class HourlyByTactTimeEndpoints
             var hourlyByTactTime = await service.UpdateAsync(id, request);
 
             return hourlyByTactTime is null ? Results.NotFound() : Results.Ok(hourlyByTactTime);
-        }).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin,Operator" });
+        }).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin,Master" });
 
         hourlyByTactTimeEndpoints.MapDelete("/{id:int}",
             async Task<IResult> (int id, HourlyByTactTimeService service) =>
             {
                 await service.RemoveAsync(id);
                 return Results.Ok();
-            }).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin,Operator" });
+            }).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin,Master" });
     }
 }
