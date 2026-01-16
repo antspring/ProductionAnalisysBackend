@@ -31,4 +31,35 @@ public class HourlyByPower
 
     public int ProductionDocumentId { get; set; }
     public ProductionDocument ProductionDocument { get; set; } = null!;
+
+    public HourlyByPower()
+    {
+    }
+
+    public HourlyByPower(
+        int nameOfProductId,
+        int departmentId,
+        int performerId,
+        int shiftId,
+        int workHourId,
+        double power,
+        double dailyRate,
+        double fact,
+        DateOnly date)
+    {
+        NameOfProductId = nameOfProductId;
+        DepartmentId = departmentId;
+        PerformerId = performerId;
+        ShiftId = shiftId;
+        WorkHourId = workHourId;
+        Power = power;
+        DailyRate = dailyRate;
+        Fact = fact;
+        Date = date;
+    }
+
+    public void AddProductionDocument(ProductionDocument productionDocument)
+    {
+        ProductionDocument = productionDocument;
+    }
 }

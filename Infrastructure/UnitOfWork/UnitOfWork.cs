@@ -11,18 +11,21 @@ public class UnitOfWork : IUnitOfWork
         ApplicationDbContext dbContext,
         ICatalogRepository catalogRepository,
         ICatalogValueRepository catalogValueRepository,
-        IHourlyByTactTimeRepository hourlyByTactTimeRepository
+        IHourlyByTactTimeRepository hourlyByTactTimeRepository,
+        IHourlyByPowerRepository hourlyByPowerRepository
     )
     {
         _dbContext = dbContext;
         Catalogs = catalogRepository;
         CatalogValues = catalogValueRepository;
         HourlyByTactTime = hourlyByTactTimeRepository;
+        HourlyByPower = hourlyByPowerRepository;
     }
 
     public ICatalogRepository Catalogs { get; }
     public ICatalogValueRepository CatalogValues { get; }
     public IHourlyByTactTimeRepository HourlyByTactTime { get; }
+    public IHourlyByPowerRepository HourlyByPower { get; }
 
     public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
