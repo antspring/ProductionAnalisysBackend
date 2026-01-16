@@ -55,4 +55,9 @@ public class HourlyByTactTime
         Fact = fact;
         Date = date;
     }
+
+    public void AddProductionDocument(ProductionDocument productionDocument)
+    {
+        ProductionDocument = productionDocument;
+    }
 }
