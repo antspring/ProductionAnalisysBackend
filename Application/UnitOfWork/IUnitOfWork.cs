@@ -7,6 +7,7 @@ public interface IUnitOfWork
     public ICatalogRepository Catalogs { get; }
     public ICatalogValueRepository CatalogValues { get; }
     public IHourlyByTactTimeRepository HourlyByTactTime { get; }
+    public IHourlyByPowerRepository HourlyByPower { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

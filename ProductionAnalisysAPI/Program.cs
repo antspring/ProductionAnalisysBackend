@@ -32,6 +32,7 @@ app.MapPasswordGenerateEndpoints();
 app.MapUserEndpoints();
 app.MapCatalogEndpoints();
 app.MapHourlyByTactTimeEndpoints();
+app.MapHourlyByPowerEndpoints();
 
 app.UseHttpsRedirection();
 
