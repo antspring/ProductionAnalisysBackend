@@ -6,6 +6,7 @@ using Application.Services.HourlyByTactTime;
 using Application.Services.HourlySeveral;
 using Application.Services.Implementations;
 using Application.Services.Interfaces;
+using Application.Services.LessThanPerHour;
 using Application.UnitOfWork;
 using Infrastructure;
 using Infrastructure.Identity;
@@ -72,6 +73,8 @@ public static class ServiceCollectionExtension
         services.AddScoped<HourlyByPowerService>();
         services.AddScoped<IHourlySeveralRepository, HourlySeveralRepository>();
         services.AddScoped<HourlySeveralService>();
+        services.AddScoped<ILessThanPerHourRepository, LessThanPerHourRepository>();
+        services.AddScoped<LessThanPerHourService>();
     }
 
     public static void AddSwagger(this IServiceCollection services)

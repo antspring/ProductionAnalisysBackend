@@ -3,6 +3,7 @@ using System;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260116210358_create_LessThanPerHour_table")]
+    partial class create_LessThanPerHour_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -536,79 +539,6 @@ namespace Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("LessThanPerHour");
-                });
-
-            modelBuilder.Entity("Domain.Models.ProductionAnalysis.LessThanPerHour.LessThanPerHourView", b =>
-                {
-                    b.Property<DateOnly>("Date")
-                        .HasColumnType("date");
-
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("integer");
-
-                    b.Property<double>("Deviation")
-                        .HasColumnType("double precision");
-
-                    b.Property<double>("DeviationCumulative")
-                        .HasColumnType("double precision");
-
-                    b.Property<TimeOnly>("EndTimeFact")
-                        .HasColumnType("time without time zone");
-
-                    b.Property<TimeOnly>("EndTimePlan")
-                        .HasColumnType("time without time zone");
-
-                    b.Property<double>("Fact")
-                        .HasColumnType("double precision");
-
-                    b.Property<double>("FactCumulative")
-                        .HasColumnType("double precision");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("OperationNameId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PerformerId")
-                        .HasColumnType("integer");
-
-                    b.Property<double>("Plan")
-                        .HasColumnType("double precision");
-
-                    b.Property<double>("PlanCumulative")
-                        .HasColumnType("double precision");
-
-                    b.Property<int>("ProductionDocumentId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ShiftId")
-                        .HasColumnType("integer");
-
-                    b.Property<TimeOnly>("StartTimeFact")
-                        .HasColumnType("time without time zone");
-
-                    b.Property<TimeOnly>("StartTimePlan")
-                        .HasColumnType("time without time zone");
-
-                    b.Property<int>("WorkHourId")
-                        .HasColumnType("integer");
-
-                    b.HasIndex("DepartmentId");
-
-                    b.HasIndex("OperationNameId");
-
-                    b.HasIndex("PerformerId");
-
-                    b.HasIndex("ProductionDocumentId");
-
-                    b.HasIndex("ShiftId");
-
-                    b.HasIndex("WorkHourId");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("LessThanPerHourView", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.ProductionDownTime.ProductionDocument", b =>
@@ -1234,57 +1164,6 @@ namespace Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("Domain.Models.ProductionAnalysis.LessThanPerHour.LessThanPerHour", b =>
-                {
-                    b.HasOne("Domain.Models.Catalogs.CatalogValue", "Department")
-                        .WithMany()
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Catalogs.CatalogValue", "OperationName")
-                        .WithMany()
-                        .HasForeignKey("OperationNameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Catalogs.CatalogValue", "Performer")
-                        .WithMany()
-                        .HasForeignKey("PerformerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.ProductionDownTime.ProductionDocument", "ProductionDocument")
-                        .WithMany()
-                        .HasForeignKey("ProductionDocumentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Catalogs.CatalogValue", "Shift")
-                        .WithMany()
-                        .HasForeignKey("ShiftId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Catalogs.CatalogValue", "WorkHour")
-                        .WithMany()
-                        .HasForeignKey("WorkHourId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Department");
-
-                    b.Navigation("OperationName");
-
-                    b.Navigation("Performer");
-
-                    b.Navigation("ProductionDocument");
-
-                    b.Navigation("Shift");
-
-                    b.Navigation("WorkHour");
-                });
-
-            modelBuilder.Entity("Domain.Models.ProductionAnalysis.LessThanPerHour.LessThanPerHourView", b =>
                 {
                     b.HasOne("Domain.Models.Catalogs.CatalogValue", "Department")
                         .WithMany()
