@@ -26,7 +26,7 @@ public static class HourlyByPowerEndpoints
         hourlyByPowerEndpoints.MapPost("/",
             async Task<IResult> ([FromBody] HourlyByPowerCreateRequest request, HourlyByPowerService service) =>
             Results.Ok(await service.CreateAsync(request.ToModel()))
-        ).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin,Operator" });
+        ).RequireAuthorization();
 
         hourlyByPowerEndpoints.MapPatch("/{id:int}", async Task<IResult> (int id,
             [FromBody] HourlyByPowerUpdateRequest request,
@@ -35,13 +35,13 @@ public static class HourlyByPowerEndpoints
             var hourlyByPower = await service.UpdateAsync(id, request);
 
             return hourlyByPower is null ? Results.NotFound() : Results.Ok(hourlyByPower);
-        }).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin,Operator" });
+        }).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin,Master" });
 
         hourlyByPowerEndpoints.MapDelete("/{id:int}",
             async Task<IResult> (int id, HourlyByPowerService service) =>
             {
                 await service.RemoveAsync(id);
                 return Results.Ok();
-            }).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin,Operator" });
+            }).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin,Master" });
     }
 }
