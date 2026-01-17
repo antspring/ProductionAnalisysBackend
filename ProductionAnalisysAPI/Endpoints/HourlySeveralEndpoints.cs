@@ -43,5 +43,12 @@ public static class HourlySeveralEndpoints
                 await service.RemoveAsync(id);
                 return Results.Ok();
             }).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin,Master" });
+
+        hourlySeveralEndpoints.MapGet("/excel", async Task<IResult> (HourlySeveralService service) =>
+        {
+            var excelBytes = await service.GenerateExcel();
+            return Results.File(excelBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                "production_analysis.xlsx");
+        });
     }
 }
