@@ -43,5 +43,12 @@ public static class HourlyByTactTimeEndpoints
                 await service.RemoveAsync(id);
                 return Results.Ok();
             }).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin,Master" });
+
+        hourlyByTactTimeEndpoints.MapGet("/excel", async Task<IResult> (HourlyByTactTimeService service) =>
+        {
+            var excelBytes = await service.GenerateExcel();
+            return Results.File(excelBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                "production_analysis.xlsx");
+        });
     }
 }
