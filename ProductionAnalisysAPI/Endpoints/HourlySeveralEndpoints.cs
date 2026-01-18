@@ -50,5 +50,11 @@ public static class HourlySeveralEndpoints
             return Results.File(excelBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 "production_analysis.xlsx");
         });
+        
+        hourlySeveralEndpoints.MapGet("/pdf", async Task<IResult> (HourlySeveralService service) =>
+        {
+            var pdfBytes = await service.GeneratePdf();
+            return Results.File(pdfBytes, "application/pdf", "production_analysis.pdf");
+        });
     }
 }

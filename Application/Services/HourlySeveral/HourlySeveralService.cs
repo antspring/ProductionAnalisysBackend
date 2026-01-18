@@ -1,8 +1,12 @@
-﻿using Application.DTO.Requests.HourlySeveral;
+﻿using System.Globalization;
+using Application.DTO.Requests.HourlySeveral;
 using Application.DTO.Responses.HourlySeveral;
 using Application.UnitOfWork;
 using ClosedXML.Excel;
 using Domain.Models.ProductionDownTime;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 
 namespace Application.Services.HourlySeveral;
 
@@ -131,5 +135,95 @@ public class HourlySeveralService
         using var stream = new MemoryStream();
         wb.SaveAs(stream);
         return stream.ToArray();
+    }
+
+    public async Task<byte[]> GeneratePdf()
+    {
+        var analysis = await _uow.HourlySeveral.GetAllThroughViewAsync();
+
+        QuestPDF.Settings.License = LicenseType.Community;
+
+        return Document.Create(container =>
+        {
+            container.Page(page =>
+            {
+                page.Size(PageSizes.A1.Landscape());
+                page.Margin(20);
+                page.Content().Table(table =>
+                {
+                    table.ColumnsDefinition(columns =>
+                    {
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                    });
+
+                    table.Header(header =>
+                    {
+                        header.Cell().Text("Наименование изд. 1");
+                        header.Cell().Text("Наименование изд. 2");
+                        header.Cell().Text("Подразделение");
+                        header.Cell().Text("ФИО заполняющего");
+                        header.Cell().Text("Дата");
+                        header.Cell().Text("Смена");
+                        header.Cell().Text("Тц изд. 1, сек");
+                        header.Cell().Text("Тц изд. 2, сек");
+                        header.Cell().Text("Суточный темп изд. 1, шт");
+                        header.Cell().Text("Суточный темп изд. 2, шт");
+                        header.Cell().Text("Вермя работы, час");
+                        header.Cell().Text("План, шт.");
+                        header.Cell().Text("План накопительный, шт.");
+                        header.Cell().Text("Факт, шт.");
+                        header.Cell().Text("Факт накопительный, шт.");
+                        header.Cell().Text("Отклонен, шт.");
+                        header.Cell().Text("Отклонение, накопительный, шт.");
+                        header.Cell().Text("Итого факт, шт.");
+                        header.Cell().Text("Итого план, шт.");
+                        header.Cell().Text("Переналадка, мин.");
+                    });
+
+                    foreach (var item in analysis)
+                    {
+                        table.Cell().Text(item.Product1.Value);
+                        table.Cell().Text(item.Product2.Value);
+                        table.Cell().Text(item.Department.Value);
+                        table.Cell().Text(item.Performer.Value);
+                        table.Cell().Text(item.Date.ToString("yyyy-MM-dd"));
+                        table.Cell().Text(item.Shift.Value);
+                        table.Cell().Text(item.CycleTime1.ToString(CultureInfo.InvariantCulture));
+                        table.Cell().Text(item.CycleTime2.ToString(CultureInfo.InvariantCulture));
+                        table.Cell().Text(item.DailyRate1.ToString(CultureInfo.InvariantCulture));
+                        table.Cell().Text(item.DailyRate2.ToString(CultureInfo.InvariantCulture));
+                        table.Cell().Text(item.WorkHour.Value);
+                        table.Cell().Text(item.Plan.ToString(CultureInfo.InvariantCulture));
+                        table.Cell().Text(item.PlanCumulative.ToString(CultureInfo.InvariantCulture));
+                        table.Cell().Text(item.Fact.ToString(CultureInfo.InvariantCulture));
+                        table.Cell().Text(item.FactCumulative.ToString(CultureInfo.InvariantCulture));
+                        table.Cell().Text(item.Deviation.ToString(CultureInfo.InvariantCulture));
+                        table.Cell().Text(item.DeviationCumulative.ToString(CultureInfo.InvariantCulture));
+                        table.Cell().Text(item.TotalFact.ToString(CultureInfo.InvariantCulture));
+                        table.Cell().Text(item.TotalPlan.ToString(CultureInfo.InvariantCulture));
+                        table.Cell().Text(item.Changeover.ToString(CultureInfo.InvariantCulture));
+                    }
+                });
+            });
+        }).GeneratePdf();
     }
 }
