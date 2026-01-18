@@ -52,7 +52,9 @@ namespace Infrastructure.Migrations
                                         SUM(hbt."Fact" - hbt."Plan") OVER (
                                             PARTITION BY hbt."OperationNameId", hbt."DepartmentId", hbt."ShiftId", hbt."Date"
                                             ORDER BY wh."Id"
-                                            )                   AS "DeviationCumulative"
+                                            )                   AS "DeviationCumulative",
+                                     
+                                        hbt."Status"
                                  
                                  FROM "LessThanPerHour" hbt
                                           JOIN "CatalogValue" wh ON wh."Id" = hbt."WorkHourId";

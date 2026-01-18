@@ -39,4 +39,5 @@ public class LessThanPerHourView
     public double FactCumulative { get; set; }
     public double Deviation { get; set; }
     public double DeviationCumulative { get; set; }
+    public string Status { get; set; } = null!;
 }

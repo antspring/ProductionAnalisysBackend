@@ -15,4 +15,5 @@ public class LessThanPerHourUpdateRequest
 
     public double? Plan { get; set; }
     public double? Fact { get; set; }
+    public string? Status { get; set; }
 }

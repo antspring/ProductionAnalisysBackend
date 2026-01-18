@@ -34,6 +34,7 @@ public class LessThanPerHour
 
     public int ProductionDocumentId { get; set; }
     public ProductionDocument ProductionDocument { get; set; } = null!;
+    public string Status { get; set; }
 
     public LessThanPerHour()
     {
@@ -51,7 +52,8 @@ public class LessThanPerHour
         TimeOnly endTimePlan,
         TimeOnly endTimeFact,
         double plan,
-        double fact
+        double fact,
+        string status
     )
     {
         DepartmentId = departmentId;
@@ -66,6 +68,7 @@ public class LessThanPerHour
         EndTimeFact = endTimeFact;
         Plan = plan;
         Fact = fact;
+        Status = status;
     }
 
     public void AddProductionDocument(ProductionDocument productionDocument)
