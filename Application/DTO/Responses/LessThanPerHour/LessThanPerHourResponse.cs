@@ -28,6 +28,7 @@ public class LessThanPerHourResponse
     public double FactCumulative { get; set; }
     public double Deviation { get; set; }
     public double DeviationCumulative { get; set; }
+    public string Status { get; set; }
 
     public LessThanPerHourResponse(LessThanPerHourView lessThanPerHourView)
     {
@@ -49,5 +50,6 @@ public class LessThanPerHourResponse
         FactCumulative = lessThanPerHourView.FactCumulative;
         Deviation = lessThanPerHourView.Deviation;
         DeviationCumulative = lessThanPerHourView.DeviationCumulative;
+        Status = lessThanPerHourView.Status;
     }
 }

@@ -93,6 +93,7 @@ public class LessThanPerHourService
         ws.Cell(1, 14).Value = "Факт накопительный, шт.";
         ws.Cell(1, 15).Value = "Отклонен";
         ws.Cell(1, 16).Value = "Отклонение накопительный, шт.";
+        ws.Cell(1, 17).Value = "Статус";
 
         var row = 2;
 
@@ -114,6 +115,7 @@ public class LessThanPerHourService
             ws.Cell(row, 14).Value = item.FactCumulative;
             ws.Cell(row, 15).Value = item.Deviation;
             ws.Cell(row, 16).Value = item.DeviationCumulative;
+            ws.Cell(row, 17).Value = item.Status;
 
             row++;
         }
