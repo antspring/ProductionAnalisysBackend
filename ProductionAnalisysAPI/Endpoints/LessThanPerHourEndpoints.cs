@@ -50,5 +50,11 @@ public static class LessThanPerHourEndpoints
             return Results.File(excelBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 "production_analysis.xlsx");
         });
+        
+        lessThanPerHourEndpoints.MapGet("/pdf", async Task<IResult> (LessThanPerHourService service) =>
+        {
+            var pdfBytes = await service.GeneratePdf();
+            return Results.File(pdfBytes, "application/pdf", "production_analysis.pdf");
+        });
     }
 }

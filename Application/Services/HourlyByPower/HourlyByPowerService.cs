@@ -1,8 +1,12 @@
-﻿using Application.DTO.Requests.HourlyByPower;
+﻿using System.Globalization;
+using Application.DTO.Requests.HourlyByPower;
 using Application.DTO.Responses.HourlyByPower;
 using Application.UnitOfWork;
 using ClosedXML.Excel;
 using Domain.Models.ProductionDownTime;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 
 namespace Application.Services.HourlyByPower;
 
@@ -123,5 +127,83 @@ public class HourlyByPowerService
         using var stream = new MemoryStream();
         wb.SaveAs(stream);
         return stream.ToArray();
+    }
+    
+    public async Task<byte[]> GeneratePdf()
+    {
+        var analysis = await _uow.HourlyByPower.GetAllThroughViewAsync();
+
+        QuestPDF.Settings.License = LicenseType.Community; 
+        
+        return Document.Create(container =>
+        {
+            container.Page(page =>
+            {
+                page.Size(PageSizes.A1.Landscape());
+                page.Margin(20);
+                page.Content().Table(table =>
+                {
+                    table.ColumnsDefinition(columns =>
+                    {
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                        columns.RelativeColumn();
+                    });
+
+                    table.Header(header =>
+                    {
+                        header.Cell().Text("Наименование продукции");
+                        header.Cell().Text("Подразделение");
+                        header.Cell().Text("ФИО заполняющего");
+                        header.Cell().Text("Дата");
+                        header.Cell().Text("Смена");
+                        header.Cell().Text("Мощность рабочего места, шт./час");
+                        header.Cell().Text("Суточный темп, шт");
+                        header.Cell().Text("Время работы, час");
+                        header.Cell().Text("План, шт");
+                        header.Cell().Text("План накопительный, шт");
+                        header.Cell().Text("Факт, шт");
+                        header.Cell().Text("Факт накопительный, шт");
+                        header.Cell().Text("Отклонен, шт");
+                        header.Cell().Text("Отклонение, накопительный");
+                        header.Cell().Text("Итого факт, шт");
+                        header.Cell().Text("Итого план, шт");
+                    });
+
+                    foreach (var item in analysis)
+                    {
+                        table.Cell().Text(item.NameOfProduct.Value);
+                        table.Cell().Text(item.Department.Value);
+                        table.Cell().Text(item.Performer.Value);
+                        table.Cell().Text(item.Date.ToString("yyyy-MM-dd"));
+                        table.Cell().Text(item.Shift.Value);
+                        table.Cell().Text(item.Power.ToString(CultureInfo.InvariantCulture));
+                        table.Cell().Text(item.DailyRate.ToString(CultureInfo.InvariantCulture));
+                        table.Cell().Text(item.WorkHour.Value);
+                        table.Cell().Text(item.Plan.ToString(CultureInfo.InvariantCulture));
+                        table.Cell().Text(item.PlanCumulative.ToString(CultureInfo.InvariantCulture));
+                        table.Cell().Text(item.Fact.ToString(CultureInfo.InvariantCulture));
+                        table.Cell().Text(item.FactCumulative.ToString(CultureInfo.InvariantCulture));
+                        table.Cell().Text(item.Deviation.ToString(CultureInfo.InvariantCulture));
+                        table.Cell().Text(item.DeviationCumulative.ToString(CultureInfo.InvariantCulture));
+                        table.Cell().Text(item.TotalFact.ToString(CultureInfo.InvariantCulture));
+                        table.Cell().Text(item.TotalPlan.ToString(CultureInfo.InvariantCulture));
+                    }
+                });
+            });
+        }).GeneratePdf();
     }
 }
