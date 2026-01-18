@@ -50,5 +50,11 @@ public static class HourlyByTactTimeEndpoints
             return Results.File(excelBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 "production_analysis.xlsx");
         });
+
+        hourlyByTactTimeEndpoints.MapGet("/pdf", async Task<IResult> (HourlyByTactTimeService service) =>
+        {
+            var pdfBytes = await service.GeneratePdf();
+            return Results.File(pdfBytes, "application/pdf", "production_analysis.pdf");
+        });
     }
 }
