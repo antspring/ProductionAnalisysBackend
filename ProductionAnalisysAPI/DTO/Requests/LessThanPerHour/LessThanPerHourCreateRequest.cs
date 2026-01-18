@@ -15,6 +15,7 @@ public class LessThanPerHourCreateRequest
 
     public double Plan { get; set; }
     public double Fact { get; set; }
+    public string Status { get; set; } = null!;
 
     public Domain.Models.ProductionAnalysis.LessThanPerHour.LessThanPerHour ToModel()
     {
@@ -30,7 +31,8 @@ public class LessThanPerHourCreateRequest
             EndTimePlan,
             EndTimeFact,
             Plan,
-            Fact
+            Fact,
+            Status
         );
     }
 }

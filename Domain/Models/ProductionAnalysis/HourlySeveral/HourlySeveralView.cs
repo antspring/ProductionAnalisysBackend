@@ -24,6 +24,7 @@ public class HourlySeveralView
     
     public int WorkHourId { get; set; }
     public CatalogValue WorkHour { get; set; } = null!;
+    public DateOnly Date { get; set; }
     
     public double CycleTime1 { get; set; }
     public double CycleTime2 { get; set; }
