@@ -10,6 +10,9 @@ public static class DownTimeEndpoints
     {
         var downTimeEndpoints = app.MapGroup("/downtime");
 
+        downTimeEndpoints.MapGet("/", async Task<IResult> (DownTimeService service) =>
+            Results.Ok(await service.GetAllAsync()));
+
         downTimeEndpoints.MapGet("/{documentId:int}",
             async (int documentId, DownTimeService service) =>
                 Results.Ok((object?)await service.GetByDocumentIdAsync(documentId)));
