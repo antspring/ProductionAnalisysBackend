@@ -12,6 +12,11 @@ public class DownTimeService
         _uow = unitOfWork;
     }
 
+    public Task<List<ProductionDownTime>> GetAllAsync()
+    {
+        return _uow.DownTime.GetAllAsync();
+    }
+
     public Task<List<ProductionDownTime>> GetByDocumentIdAsync(int documentId)
     {
         return _uow.DownTime.GetByDocumentIdAsync(documentId);

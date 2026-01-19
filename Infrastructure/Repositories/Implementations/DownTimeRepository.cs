@@ -13,10 +13,19 @@ public class DownTimeRepository : IDownTimeRepository
         _dbContext = dbContext;
     }
 
+    public Task<List<ProductionDownTime>> GetAllAsync()
+    {
+        return _dbContext.ProductionDownTime
+            .Include(pt => pt.ReasonGroup)
+            .Include(pt => pt.Reason)
+            .Include(pt => pt.Responsible)
+            .ToListAsync();
+    }
+
     public Task<List<ProductionDownTime>> GetByDocumentIdAsync(int documentId)
     {
         return _dbContext.ProductionDownTime
-                .Where(pt => pt.DocumentId == documentId)
+            .Where(pt => pt.DocumentId == documentId)
             .Include(pt => pt.ReasonGroup)
             .Include(pt => pt.Reason)
             .Include(pt => pt.Responsible)
